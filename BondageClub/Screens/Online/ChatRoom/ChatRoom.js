@@ -78,14 +78,12 @@ function ChatRoomDrawCharacter(DoClick) {
 
 	// If there's 2 characters, it's zoomed in
 	if (!DoClick && (Player.Effect.indexOf("BlindHeavy") < 0) && (Player.Effect.indexOf("BlindNormal") < 0)) {
-		var Dark = Player.Effect.indexOf("BlindLight") >= 0;
-		var BackgroundUrl = "Backgrounds/" + ChatRoomData.Background + ".jpg";
-		//BackgroundUrl = "https://previews.123rf.com/images/armpannawat/armpannawat1602/armpannawat160200072/54242802-empty-wooden-table-and-blurred-kitchen-background-product-montage-display.jpg";
-		if (ChatRoomCharacter.length <= 2) DrawImageZoomCanvas(BackgroundUrl, MainCanvas, 500, 0, 1000, 1000, 0, 0, 1000, 1000, Dark);
-		if (ChatRoomCharacter.length == 3) DrawImageZoomCanvas(BackgroundUrl, MainCanvas, 400, 0, 1200, 1000, 0, 50, 1000, 900, Dark);
-		if (ChatRoomCharacter.length == 4) DrawImageZoomCanvas(BackgroundUrl, MainCanvas, 200, 0, 1600, 1000, 0, 150, 1000, 700, Dark);
-		if (ChatRoomCharacter.length == 5) DrawImageZoomCanvas(BackgroundUrl, MainCanvas, 0, 0, 2000, 1000, 0, 250, 1000, 500, Dark);
-		if (ChatRoomCharacter.length >= 6) DrawImageZoomCanvas(BackgroundUrl, MainCanvas, 0, 0, 2000, 1000, 0, 0, 1000, 500, Dark);
+		var Dark = (Player.Effect.indexOf("BlindLight") < 0) ? "" : "Dark";
+		if (ChatRoomCharacter.length <= 2) DrawImageZoomCanvas("Backgrounds/" + ChatRoomData.Background + Dark + ".jpg", MainCanvas, 500, 0, 1000, 1000, 0, 0, 1000, 1000);
+		if (ChatRoomCharacter.length == 3) DrawImageZoomCanvas("Backgrounds/" + ChatRoomData.Background + Dark + ".jpg", MainCanvas, 400, 0, 1200, 1000, 0, 50, 1000, 900);
+		if (ChatRoomCharacter.length == 4) DrawImageZoomCanvas("Backgrounds/" + ChatRoomData.Background + Dark + ".jpg", MainCanvas, 200, 0, 1600, 1000, 0, 150, 1000, 700);
+		if (ChatRoomCharacter.length == 5) DrawImageZoomCanvas("Backgrounds/" + ChatRoomData.Background + Dark + ".jpg", MainCanvas, 0, 0, 2000, 1000, 0, 250, 1000, 500);
+		if (ChatRoomCharacter.length >= 6) DrawImageZoomCanvas("Backgrounds/" + ChatRoomData.Background + Dark + ".jpg", MainCanvas, 0, 0, 2000, 1000, 0, 0, 1000, 500);
 	}
 
 	// Sets the X position
@@ -177,11 +175,10 @@ function ChatRoomRun() {
 	DrawRect(0, 0, 2000, 1000, "Black");
 	ChatRoomDrawCharacter(false);
 	ElementPositionFix("TextAreaChatLog", 36, 1005, 5, 988, 859);
-	ElementPosition("InputChat", 1373, 929, 734, 117);
+	ElementPosition("InputChat", 1405, 929, 798, 117);
 	DrawButton(1805, 870, 60, 60, "", "White", "Icons/Small/Chat.png");
 	DrawButton(1870, 870, 60, 60, "", "White", "Icons/Small/Character.png");
 	DrawButton(1935, 870, 60, 60, "", "White", "Icons/Small/Preference.png");
-	if (ChatRoomCanLeave()) DrawButton(1740, 935, 60, 60, "", "White", "Icons/Small/ExitToRoom.png");
 	if (Player.CanKneel()) DrawButton(1805, 935, 60, 60, "", "White", "Icons/Small/Kneel.png");
 	if (Player.CanChange()) DrawButton(1870, 935, 60, 60, "", "White", "Icons/Small/Dress.png");
 	if (ChatRoomCanLeave()) DrawButton(1935, 935, 60, 60, "", "White", "Icons/Small/Exit.png");
@@ -224,29 +221,14 @@ function ChatRoomClick() {
 		CharacterAppearanceLoadCharacter(Player);
 	}
 
-	// When the user wants to go to another room
-	if ((MouseX >= 1740) && (MouseX < 1740+60) && (MouseY >= 935) && (MouseY < 995) && ChatRoomCanLeave()) {
-		//name in input chat has priority
-		var NextRoomName = ElementValue("InputChat").trim();
-		if(NextRoomName.length == 0) NextRoomName = ChatCreateRoomData.Name;
-		if(NextRoomName == ChatRoomData.Name) return;
-
-		var captured = ChatRoomCharacter.filter(function(el){return el.Owner == Player.MemberNumber;}).MemberNumber;
-		ServerSend("ChatRoomJoinOrCreate", { Name: NextRoomName, RoomData: ChatCreateRoomData, AdditionalCharacters: (captured ? captured : [])});
-
-		ElementRemove("InputChat");
-		ElementRemove("TextAreaChatLog");
-		CharacterAppearanceReturnRoom = "ChatRoom";
-		CharacterAppearanceReturnModule = "Online";
-	}
-
-	//When the user leaves
+	// When the user leaves
 	if ((MouseX >= 1935) && (MouseX < 1995) && (MouseY >= 935) && (MouseY < 995) && ChatRoomCanLeave()) {
 		ElementRemove("InputChat");
 		ElementRemove("TextAreaChatLog");
 		ServerSend("ChatRoomLeave", "");
 		CommonSetScreen("Online", "ChatSearch");
 	}
+
 }
 
 // Returns TRUE if the player can leave the current chat room
