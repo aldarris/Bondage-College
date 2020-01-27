@@ -148,7 +148,10 @@ function ChatAdminUpdateRoom() {
 		Private: ChatAdminPrivate,
 		Locked: ChatAdminLocked
 	};
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 	ServerSend("ChatRoomAdmin", { MemberNumber: Player.ID, Room : ChatCreateRoomData, Action: "Update" });
 	ChatAdminMessage = "UpdatingRoom";
 }

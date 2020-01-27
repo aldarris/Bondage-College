@@ -1,6 +1,10 @@
 "use strict";
 var ChatCreateBackground = "IntroductionDark";
 //var ChatCreateResult = []; commented out unused variable
+<<<<<<< Updated upstream
+=======
+var ChatCreateRoomData = null;
+>>>>>>> Stashed changes
 var ChatCreateMessage = "";
 var ChatCreatePrivate = null;
 var ChatCreateBackgroundIndex = 0;
