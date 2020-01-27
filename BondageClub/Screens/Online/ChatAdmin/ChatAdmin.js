@@ -138,7 +138,7 @@ function ChatAdminResponse(data) {
 
 // Sends the chat room update packet to the server and waits for the answer
 function ChatAdminUpdateRoom() {
-	var UpdatedRoom = {
+	ChatCreateRoomData = {
 		Name: ElementValue("InputName").trim(),
 		Description: ElementValue("InputDescription").trim(),
 		Background: ChatAdminBackgroundSelect,
@@ -148,6 +148,7 @@ function ChatAdminUpdateRoom() {
 		Private: ChatAdminPrivate,
 		Locked: ChatAdminLocked
 	};
-	ServerSend("ChatRoomAdmin", { MemberNumber: Player.ID, Room: UpdatedRoom, Action: "Update" });
+
+	ServerSend("ChatRoomAdmin", { MemberNumber: Player.ID, Room : ChatCreateRoomData, Action: "Update" });
 	ChatAdminMessage = "UpdatingRoom";
 }

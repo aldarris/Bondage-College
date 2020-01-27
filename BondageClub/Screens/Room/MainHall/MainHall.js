@@ -187,7 +187,17 @@ function MainHallClick() {
 		ChatRoomSpace = "";
 		ChatSearchBackground = "IntroductionDark";
 		ChatSearchLeaveRoom = "MainHall";
-		ChatCreateBackgroundList = ["Introduction", "KidnapLeague", "MaidQuarters", "MainHall", "Management", "Private", "Shibari", "Bedroom", "HorseStable", "Nursery", "PrisonHall", "BDSMRoomBlue", "BDSMRoomPurple", "BDSMRoomRed", "Gardens", "IndoorPool", "OutdoorPool", "MaidCafe", "PublicBath", "ParkDay", "ParkNight", "ChillRoom", "Boudoir", "BondageBedChamber", "Beach", "ForestPath", "DeepForest", "SpookyForest", "SlumRuins", "AbandonedBuilding", "BalconyNight", "CozyLivingRoom", "RooftopParty", "CosyChalet", "ParkWinter", "XmasEve", "XmasDay", "StreetNight", "SnowyStreet"];
+		ChatCreateBackgroundList = ["Introduction", "KidnapLeague", "MaidQuarters", "MainHall", "Management", "Private", "Shibari", "MaidCafe", "HorseStable", "Nursery", "PrisonHall", "Bedroom", 
+				"BDSMRoomBlue", "BDSMRoomPurple", "BDSMRoomRed", "BondageBedChamber",
+				"ParkDay", "ParkNight", "Gardens", "ParkWinter", "XmasEve", "XmasDay", "StreetNight", "SnowyStreet",
+				"IndoorPool", "OutdoorPool",  "PublicBath", "Beach", "PirateIsland",  "PirateIslandNight",
+				"ForestPath", "DeepForest", "SpookyForest", "WitchWood",
+				"ThroneRoom", "SecretChamber", "Dungeon", "DungeonRuin",
+				"AncientRuins",  "JungleTemple",
+				"HellEntrance", 
+				"SlumRuins", "AbandonedBuilding", 
+				"ChillRoom", "Boudoir", "CozyLivingRoom", "RooftopParty", "CosyChalet",	"BalconyNight",
+				"AlchemistOffice"];
 		CommonSetScreen("Online", "ChatSearch");
 	}
 
