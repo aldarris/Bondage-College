@@ -1,10 +1,6 @@
 "use strict";
 var ChatCreateBackground = "IntroductionDark";
-//var ChatCreateResult = []; commented out unused variable
-<<<<<<< Updated upstream
-=======
-var ChatCreateRoomData = null;
->>>>>>> Stashed changes
+var ChatCreateResult = [];
 var ChatCreateMessage = "";
 var ChatCreatePrivate = null;
 var ChatCreateBackgroundIndex = 0;
@@ -107,15 +103,14 @@ function ChatCreateExit() {
 
 // When the server sends a response
 function ChatCreateResponse(data) {
-	if ((data != null) && (typeof data === "string") && (data != "")){
+	if ((data != null) && (typeof data === "string") && (data != ""))
 		ChatCreateMessage = "Response" + data;
-	}
 }
 
 // Creates the chat room
 function ChatCreateRoom() {
 	ChatRoomPlayerCanJoin = true;
-	ChatCreateRoomData = {
+	var NewRoom = {
 		Name: ElementValue("InputName").trim(),
 		Description: ElementValue("InputDescription").trim(),
 		Background: ChatCreateBackgroundSelect,
@@ -123,8 +118,6 @@ function ChatCreateRoom() {
 		Space: ChatRoomSpace,
 		Limit: ElementValue("InputSize").trim()
 	};
-
-	ServerSend("ChatRoomCreate", ChatCreateRoomData);
+	ServerSend("ChatRoomCreate", NewRoom);
 	ChatCreateMessage = "CreatingRoom";
-
 }
