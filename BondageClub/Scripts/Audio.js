@@ -65,7 +65,7 @@ function AudioPlayContent(data) {
 				default: return;
 			}
 		}
-	} else {console.log(data.Content);
+	} else {
 
 		// When the vibrator or inflatable level increases or decreases
 		if(data.Content.includes("Pumppumps"))
@@ -119,9 +119,6 @@ function AudioPlayContent(data) {
 		else if (Player.Effect.indexOf("DeafNormal") >= 0) noiseLevelModifier -= 2;
 		else if (Player.Effect.indexOf("DeafLight") >= 0) noiseLevelModifier -= 1;
 	}
-	
-	console.log(audioFile);
-	console.log(noiseLevelModifier);
 
 	// Sends the audio file to be played
 	if (data.Sender != Player.MemberNumber && target.MemberNumber != Player.MemberNumber) noiseLevelModifier -= 2;
