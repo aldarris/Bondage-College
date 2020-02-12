@@ -97,7 +97,6 @@ function MaidQuartersWearMaidUniform() {
 
 	InventoryWear(Player, "MaidOutfit1", "Cloth", "Default");
 	InventoryWear(Player, "MaidHairband1", "Hat", "Default");
-	console.log(MaidQuartersItemClothPrev);
 }
 
 // When the player removes the maid uniform and dresses back
