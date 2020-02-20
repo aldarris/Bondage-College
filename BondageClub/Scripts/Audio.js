@@ -130,8 +130,10 @@ function AudioPlayContent(data) {
 			audioFile = "Audio/CuffsMetal.mp3";
 		} else if (data.Content.includes("RopeSet")){
 			audioFile = "Audio/RopeShort.mp3"; noiseLevelModifier += 2;
+			data.Sender = data.Dictionary.find(function (el) {return el.Tag == "SourceCharacter";}).MemberNumber;
 		} else if (data.Content.includes("ChainSet")){
-			audioFile = "Audio/ChainLong.mp3"; noiseLevelModifier += 2;
+			audioFile = "Audio/ChainLong.mp3";
+			data.Sender = data.Dictionary.find(function (el) {return el.Tag == "SourceCharacter";}).MemberNumber; 
 		}
 	}
 
