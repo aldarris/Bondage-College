@@ -129,11 +129,11 @@ function AudioPlayContent(data) {
 		} else if (data.Content.includes("ShacklesRestrain") || data.Content.includes("Ornate")){
 			audioFile = "Audio/CuffsMetal.mp3";
 		} else if (data.Content.includes("RopeSet")){
-			audioFile = "Audio/RopeShort.mp3"; noiseLevelModifier += 2;
+			audioFile = "Audio/RopeShort.mp3";
 			data.Sender = data.Dictionary.find(function (el) {return el.Tag == "SourceCharacter";}).MemberNumber;
 		} else if (data.Content.includes("ChainSet")){
 			audioFile = "Audio/ChainLong.mp3";
-			data.Sender = data.Dictionary.find(function (el) {return el.Tag == "SourceCharacter";}).MemberNumber; 
+			data.Sender = data.Dictionary.find(function (el) {return el.Tag == "SourceCharacter";}).MemberNumber;
 		}
 	}
 
