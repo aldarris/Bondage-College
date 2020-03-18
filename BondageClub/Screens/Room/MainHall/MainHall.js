@@ -194,7 +194,7 @@ function MainHallClick() {
 			"CeremonialVenue", "WeddingRoom", "WeddingArch", "WeddingBeach",
 			"ParkDay", "ParkNight", "Gardens", "ParkWinter", "XmasEve", "XmasDay", "StreetNight", "SnowyStreet",
 			"IndoorPool", "OutdoorPool", "PublicBath", "Onsen", "Beach", "BeachCafe",
-			"PirateIsland", "PirateIslandNight", "ShipDeck", "CaptainCabin", "MedinaMarket",
+			"PirateIsland", "PirateIslandNight", "ShipDeck", "CaptainCabin", "Shipwreck", "MedinaMarket",
 			"SheikhPrivate", "SheikhTent",
 			"ForestPath", "DeepForest", "SpookyForest", "WitchWood", "DesolateVillage",
 			"ThroneRoom", "SecretChamber", "Dungeon", "DungeonRuin", "Confessions",
