@@ -161,7 +161,6 @@ HeavenEntrance,,,Entrance to Heaven
 PirateIsland,,,Pirate Island
 PirateIslandNight,,,Pirate Island Night
 ShipDeck,,,Ship's Deck
-Swhipwreck,,,Ship Wreck
 CaptainCabin,,,Captain Cabin
 UnderwaterOne,,,Underwater One
 MedinaMarket,,,Medina Market
@@ -928,6 +927,14 @@ TeddyBearSetKitty,,,SourceCharacter gives TargetCharacter a cute kitty teddy.
 TeddyBearSetPup,,,SourceCharacter gives TargetCharacter a cute puppy teddy.
 TeddyBearSetBunny,,,SourceCharacter gives TargetCharacter a cute Bunny teddy.
 TeddyBearSetPony,,,SourceCharacter gives TargetCharacter a cute Pony teddy.
+HandsIn,,,Hands inside
+HandsOut,,,Hands outside
+WoodenBoxOpenHeadHandsOut,,,SourceCharacter pulls TargetCharacter's hands out of the wooden box.
+WoodenBoxOpenHeadHandsIn,,,SourceCharacter pushes TargetCharacter's hands inside the wooden box.
+SmallWoodenBoxOpenHeadHandsOut,,,SourceCharacter pulls TargetCharacter's hands out of the wooden box.
+SmallWoodenBoxOpenHeadHandsIn,,,SourceCharacter places TargetCharacter's hands inside the wooden box.
+SmallWoodenBoxOpenHeadHandsOut,,,SourceCharacter pulls TargetCharacter's hands out of the wooden box.
+SmallWoodenBoxOpenHeadHandsIn,,,SourceCharacter places TargetCharacter's hands inside the wooden box.
 HeadphoneEarPlugsSelectTightness,,,Turn the headphones on/off and adjust their volume.
 HeadphoneEarPlugsPoseOff,,,Off
 HeadphoneEarPlugsPoseLight,,,Light
