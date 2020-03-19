@@ -201,7 +201,7 @@ function MainHallClick() {
 			"ThroneRoom", "SecretChamber", "Dungeon", "DungeonRuin", "Confessions",
 			"AncientRuins", "JungleTemple", "SunTemple",
 			"AlchemistOffice", "ResearchPrep", "ResearchProgress",
-			"MiddletownSchool", "SchoolHospital", "SchoolRuins", "SlumRuins", 
+			"MiddletownSchool", "SlipperyClassroom", "SchoolHospital", "SchoolRuins", "SlumRuins", 
 			"SlumApartment", "AbandonedBuilding", "AbandonedSideRoom", "Industrial", "BackAlley", "CreepyBasement", "Cellar", "SlumCellar",
 			"VaultCorridor", "HellEntrance", "HeavenEntrance",
 			"BarRestaurant", "LostVages",
