@@ -5,6 +5,7 @@ var ManagementSub = null;
 var ManagementMistressAngryCount = 0;
 var ManagementMistressReleaseTimer = 0;
 var ManagementPlayerAppearance = null;
+var ManagementPlayerAppearanceBeforeContract = null;
 var ManagementMistressAllowPlay = false;
 var ManagementCanReleaseChastity = true;
 var ManagementEmpty = false;
@@ -265,6 +266,7 @@ function ManagementSendMistressToPrivateRoom(RepChange) {
 function ManagementClubSlaveCollar(RepChange) {
 	ReputationProgress("Dominant", RepChange);
 	CharacterRelease(Player);
+	ManagementPlayerAppearanceBeforeContract = Player.Appearance.slice();
 	InventoryWear(Player, "ClubSlaveCollar", "ItemNeck");
 	LogAdd("ClubSlave", "Management", CurrentTime + 3600000);
 	LogAdd("BlockChange", "Rule", CurrentTime + 3600000);
@@ -275,13 +277,17 @@ function ManagementClubSlaveCollar(RepChange) {
 function ManagementFinishClubSlave(RepChange) {
 	ReputationProgress("Dominant", RepChange);
 	CharacterChangeMoney(Player, 80);
-	if (Player.IsOwned()) InventoryWear(Player, "SlaveCollar", "ItemNeck");
-	else {
-		InventoryRemove(Player, "ItemNeck");
-		InventoryRemove(Player, "ItemNeckAccessories");
-		InventoryRemove(Player, "ItemNeckRestraints");
+	if(null != ManagementPlayerAppearanceBeforeContract){
+		Player.Appearance = ManagementPlayerAppearanceBeforeContract;
+	}else{
+		if (Player.IsOwned()) InventoryWear(Player, "SlaveCollar", "ItemNeck");
+		else {
+			InventoryRemove(Player, "ItemNeck");
+			InventoryRemove(Player, "ItemNeckAccessories");
+			InventoryRemove(Player, "ItemNeckRestraints");
+		}
+		if (Player.IsNaked()) CharacterDress(Player, ManagementPlayerAppearance);
 	}
-	if (Player.IsNaked()) CharacterDress(Player, ManagementPlayerAppearance);
 }
 
 // When the player as club slave gets stopped by a random girl
