@@ -1,5 +1,7 @@
 SelectItem,,,Select an item to use.
+SelectItemGroup,,,Select an item to use on the GroupName.
 SelectActivity,,,Select an activity.
+SelectActivityGroup,,,Select an activity to use on the GroupName.
 CannotUseOnSelf,,,Cannot use on yourself.
 RemoveClothesForItem,,,Remove some clothes first.
 UnZipSuitForItem,,,Unzip the suit first.
@@ -21,6 +23,7 @@ LegsCannotClose,,,Legs cannot close.
 MustBeAbleToKneel,,,Must be able to kneel.
 MustStandUpFirst,,,Must stand up first.
 MustFreeFeetFirst,,,Must free feet first.
+MustFreeArmsFirst,,,Must free arms first.
 MustFreeLegsFirst,,,Must free legs first.
 MustFreeHandsFirst,,,Must free hands first.
 RemoveShacklesFirst,,,Must remove shackles first.
@@ -42,6 +45,7 @@ Remote,,,Use your remote
 DialogNormalMode,,,Exit permission mode
 DialogPermissionMode,,,Edit item permissions
 Activity,,,Sexual activities
+UpPosition,,,Show all zones
 ButtPump,,,Use the butt plug's pump
 ColorPick,,,Color of next item
 ColorSelect,,,Use this color
@@ -236,7 +240,6 @@ ServerMessageOwnerRuleRemoteAllowSelf,,,Your owner is now allowing you to use re
 ServerMessageOwnerRuleRemoteConfiscate,,,Your owner has confiscated your remotes.  All your remotes are lost.
 ServerMessageOwnerRuleRemoteBlock,,,Your owner is now preventing you from getting new remotes.  The club shop will not sell remotes to you anymore.
 ServerMessageOwnerRuleRemoteBlockSelf,,,Your owner is now preventing you from using remotes on yourself.
-ServerMessageWhisperBlocked,,,You're on SourceCharacter ghostlist.  Your message was blocked by the server.
 ServerMessageOfferBeginDating,,,"SourceCharacter is asking you to be her girlfriend.  Click on her and manage your relationship to accept, don't do anything to refuse."
 ServerMessageBeginDating,,,The Bondage Club is pleased to announce that SourceCharacter and TargetCharacter are starting a 7 days minimum period as lovers.
 ServerMessageOfferBeginEngagement,,,"SourceCharacter is asking you to become her fiancée.  Click on her and manage your relationship to accept, don't do anything to refuse."
@@ -255,7 +258,7 @@ ServerShuffle,,,SourceCharacter shuffles the position of everyone in the room ra
 ServerPromoteAdmin,,,TargetCharacterName was promoted to administrator by SourceCharacter.
 ServerDemoteAdmin,,,TargetCharacterName was demoted from administration by SourceCharacter.
 ServerUpdateRoom,,,SourceCharacter updated the room. Name: ChatRoomName. Limit: ChatRoomLimit.  ChatRoomPrivacy.  ChatRoomLocked.
-ChatRoomHelp,,,"Commands available : * or /me : write an emote, ** or /action : write an action, click on someone's name on the left to whisper, /coin : flip a coin, /dice Y or XdY : roll X dice with Y-sides (from 2 to 100 sides), /friendlistadd [ID], /friendlistremove [ID], /whitelistadd [ID], /whitelistremove [ID], /blacklistadd [ID], /blacklistremove [ID], /ghostadd [ID], /ghostremove [ID], /kick [ID], /ban [ID], /unban [ID], /promote [ID], /demote [ID]"
+ChatRoomHelp,,,"Commands available : /help : show this help text, * or /me : write an emote, ** or /action : write an action, click on someone's name on the left to whisper, PgUp/PgDn keys to navigate chat input history, /coin : flip a coin, /dice Y or XdY : roll X dice with Y-sides (from 2 to 100 sides), /friendlistadd [ID], /friendlistremove [ID], /whitelistadd [ID], /whitelistremove [ID], /blacklistadd [ID], /blacklistremove [ID], /ghostadd [ID], /ghostremove [ID], /kick [ID], /ban [ID], /unban [ID], /promote [ID], /demote [ID]"
 ActionSwap,,,SourceCharacter swaps a PrevAsset for a NextAsset on DestinationCharacter FocusAssetGroup.
 ActionUse,,,SourceCharacter uses a NextAsset on DestinationCharacter FocusAssetGroup.
 ActionChangeColor,,,SourceCharacter changes the color of NextAsset on DestinationCharacter FocusAssetGroup.
@@ -476,14 +479,19 @@ RopeBondageSuspensionHogtied,,,Suspension Hogtie
 RopeBondageWristElbowTie,,,Wrist and Elbow Tie
 RopeBondageWristTie,,,Wrist Tie
 RopeBondageRopeCuffs,,,Rope Cuffs
+RopeBondageWristElbowHarnessTie,,,Wrist and Elbow Harness Tie
 RopeBondageAllFours,,,All Fours
 RopeBondageCrotch,,,Crotch Rope
 RopeBondageHarness,,,Body Harness
+RopeBondageStar,,,Star Harness Tie
+RopeBondageWaist,,,Waist Rope
 RopeBondageDiamond,,,Diamond Style
 NoRequirement,,,No Requirement
 RequireBondageLevel,,,Need Bondage ReqLevel
 RopeHarnessSetCrotch,,,SourceCharacter uses the rope on TargetCharacter to do a crotch rope tie.
 RopeHarnessSetHarness,,,SourceCharacter uses the rope on TargetCharacter to do a body harness.
+RopeHarnessSetStar,,,SourceCharacter uses the rope on TargetCharacter to tie a star harness.
+RopeHarnessSetWaist,,,SourceCharacter uses the rope on TargetCharacter to tie a waist rope on her.
 RopeHarnessSetDiamond,,,SourceCharacter uses the rope on TargetCharacter to do a diamond style harness.
 LegRopeSetBasic,,,SourceCharacter uses the rope on TargetCharacter to do a basic tie.
 LegRopeSetMermaid,,,SourceCharacter uses the rope on TargetCharacter to do a mermaid tie.
@@ -494,6 +502,7 @@ ArmsRopeSetSuspensionHogtied,,,SourceCharacter uses the rope on TargetCharacter 
 ArmsRopeSetWristElbowTie,,,SourceCharacter uses the rope on TargetCharacter to tie her wrists and elbows together behind her back.
 ArmsRopeSetWristTie,,,SourceCharacter uses the rope on TargetCharacter to tie her wrists together behind her back.
 ArmsRopeSetRopeCuffs,,,SourceCharacter uses the rope on TargetCharacter to tie rope cuffs on her wrists
+ArmsRopeSetWristElbowHarnessTie,,,SourceCharacter uses the rope on TargetCharacter to tie her wrists and elbows in a harness behind her back.
 ArmsRopeSetAllFours,,,SourceCharacter uses the rope on TargetCharacter to have her crawling on all fours.
 Intensity-1,,,Item intensity: Disabled
 Intensity0,,,Item intensity: Low
@@ -642,6 +651,13 @@ BeltIncreaseTo0,,,DestinationCharacterName vibrating wand starts teasing her lig
 BeltIncreaseTo1,,,DestinationCharacterName vibrating wand builds up to a moderate pace.
 BeltIncreaseTo2,,,DestinationCharacterName vibrating wand starts buzzing strongly!
 BeltIncreaseTo3,,,DestinationCharacterName vibrating wand jumps up to maximum intensity!
+HempRopeBeltecreaseTo0,,,DestinationCharacterName vibrating wand slows down into a light tease.
+HempRopeBeltDecreaseTo1,,,DestinationCharacterName vibrating wand returns to a moderate pace.
+HempRopeBeltDecreaseTo2,,,DestinationCharacterName vibrating wand slows down a tiny bit.
+HempRopeBeltIncreaseTo0,,,DestinationCharacterName vibrating wand starts teasing her lightly.
+HempRopeBeltIncreaseTo1,,,DestinationCharacterName vibrating wand builds up to a moderate pace.
+HempRopeBeltIncreaseTo2,,,DestinationCharacterName vibrating wand starts buzzing strongly!
+HempRopeBeltsIncreaseTo3,,,DestinationCharacterName vibrating wand jumps up to maximum intensity!
 BPumpsdeflatesTo0,,,SourceCharacter deflates DestinationCharacter butt pump till it's empty.
 BPumpsdeflatesTo1,,,SourceCharacter deflates DestinationCharacter butt pump till only slighty filled.
 BPumpsdeflatesTo2,,,SourceCharacter deflates DestinationCharacter butt pump till it's half full.
@@ -971,6 +987,7 @@ ChainBondageHogtied,,,Hogtie
 ChainBondageSuspension,,,Suspension Tie
 ChainBondageSuspensionHogtied,,,Suspension Hogtie
 ChainBondageWristElbowTie,,,Wrist and Elbow Tie
+ChainBondageWristElbowHarnessTie,,,Wrist and Elbow Harness Tie
 ChainBondageWristTie,,,Wrist Tie
 ChainBondageChainCuffs,,,Chain Cuffs
 ChainBondageAllFours,,,All Fours
@@ -984,6 +1001,7 @@ ArmsChainSetWristElbowTie,,,SourceCharacter uses the chain on TargetCharacter to
 ArmsChainSetWristTie,,,SourceCharacter uses the chain on TargetCharacter to tie her wrists together behind her back.
 ArmsChainSetChainCuffs,,,SourceCharacter uses the chain on TargetCharacter to tie chain cuffs on her wrists.
 ArmsChainSetAllFours,,,SourceCharacter uses the chain on TargetCharacter to have her crawling on all fours.
+ArmsChainSetWristElbowHarnessTie,,,SourceCharacter uses the chain on TargetCharacter to tie her wrists and elbows in a harness behind her back.
 MermaidSuitTypeZipped,,,Zipped Up
 MermaidSuitTypeUnZip,,,Unzipped
 MermaidSuitSetZipped,,,SourceCharacter zips up TargetCharacter suit.

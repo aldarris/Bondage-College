@@ -20,6 +20,10 @@ function ServerInit() {
 	ServerSocket.on("ChatRoomUpdateResponse", function (data) { ChatAdminResponse(data); });
 	ServerSocket.on("ChatRoomSync", function (data) { ChatRoomSync(data); });
 	ServerSocket.on("ChatRoomSyncSingle", function (data) { ChatRoomSyncSingle(data); });
+	ServerSocket.on("ChatRoomSyncExpression", function (data) { ChatRoomSyncExpression(data); });
+	ServerSocket.on("ChatRoomSyncPose", function (data) { ChatRoomSyncPose(data); });
+	ServerSocket.on("ChatRoomSyncArousal", function (data) { ChatRoomSyncArousal(data); });
+	ServerSocket.on("ChatRoomSyncItem", function (data) { ChatRoomSyncItem(data); });
 	ServerSocket.on("ChatRoomMessage", function (data) { ChatRoomMessage(data); });
 	ServerSocket.on("ChatRoomAllowItem", function (data) { ChatRoomAllowItem(data); });
 	ServerSocket.on("ChatRoomGameResponse", function (data) { ChatRoomGameResponse(data); });
@@ -84,14 +88,13 @@ function ServerPlayerSync() {
 	ServerSend("AccountUpdate", { Money: Player.Money, Owner: Player.Owner, Lover: Player.Lover });
 }
 
-// Syncs the full player inventory to the server
+// Syncs the full player inventory to the server, it's compressed as a stringify array using LZString
 function ServerPlayerInventorySync() {
-	var D = {};
-	D.Inventory = [];
+	var Inv = [];
 	for (var I = 0; I < Player.Inventory.length; I++)
 		if (Player.Inventory[I].Asset != null)
-			D.Inventory.push({ Name: Player.Inventory[I].Asset.Name, Group: Player.Inventory[I].Asset.Group.Name });
-	ServerSend("AccountUpdate", D);
+			Inv.push([ Player.Inventory[I].Asset.Name, Player.Inventory[I].Asset.Group.Name ]);
+	ServerSend("AccountUpdate", { Inventory: LZString.compressToUTF16(JSON.stringify(Inv)) });
 }
 
 // Syncs the full player log to the server
@@ -408,7 +411,7 @@ function ServerAppearanceLoadFromBundle(C, AssetFamily, Bundle, SourceMemberNumb
 function ServerPlayerAppearanceSync() {
 
 	// Creates a big parameter string of every appearance items and sends it to the server
-	if ((Player.AccountName != "") && (CurrentScreen != "Photographic")) {
+	if (Player.AccountName != "") {
 		var D = {};
 		D.AssetFamily = Player.AssetFamily;
 		D.Appearance = ServerAppearanceBundle(Player.Appearance);

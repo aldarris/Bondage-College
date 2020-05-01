@@ -217,6 +217,11 @@ function DialogInventoryAdd(C, NewInv, NewInvWorn) {
 
 }
 
+// Some special screens can always allow you to put on new restraints
+function DialogAlwaysAllowRestraint() {
+	return (CurrentScreen == "Photographic");
+}
+
 // Build the buttons in the top menu
 function DialogMenuButtonBuild(C) {
 
@@ -248,8 +253,8 @@ function DialogMenuButtonBuild(C) {
 		if ((Item != null) && !IsItemLocked && InventoryItemHasEffect(Item, "Mounted", true) && Player.CanInteract() && InventoryAllow(C, Item.Asset.Prerequisite) && !IsGroupBlocked) DialogMenuButton.push("Dismount");
 		if ((Item != null) && !IsItemLocked && InventoryItemHasEffect(Item, "Enclose", true) && Player.CanInteract() && InventoryAllow(C, Item.Asset.Prerequisite) && !IsGroupBlocked) DialogMenuButton.push("Escape");
 		if (InventoryItemHasEffect(Item, "Egged") && InventoryAvailable(Player, "VibratorRemote", "ItemVulva") && Player.CanInteract() && !(LogQuery("BlockRemoteSelf", "OwnerRule") && (C.ID == 0))) DialogMenuButton.push("Remote");
-		if ((Item != null) && Item.Asset.Extended && ((Player.CanInteract()) || (CurrentScreen == "Photographic")) && !IsGroupBlocked && (!Item.Asset.OwnerOnly || (C.IsOwnedByPlayer())) && (!Item.Asset.LoverOnly || (C.IsLoverOfPlayer()))) DialogMenuButton.push("Use");
-		if ((Player.CanInteract()) || (CurrentScreen == "Photographic")) DialogMenuButton.push("ColorPick");
+		if ((Item != null) && Item.Asset.Extended && ((Player.CanInteract()) || DialogAlwaysAllowRestraint()) && !IsGroupBlocked && (!Item.Asset.OwnerOnly || (C.IsOwnedByPlayer())) && (!Item.Asset.LoverOnly || (C.IsLoverOfPlayer()))) DialogMenuButton.push("Use");
+		if ((Player.CanInteract()) || DialogAlwaysAllowRestraint()) DialogMenuButton.push("ColorPick");
 
 		// Make sure the target player zone is allowed for an activity
 		if ((C.FocusGroup.Activity != null) && !IsGroupBlocked && ActivityAllowed() && (C.ArousalSettings != null) && (C.ArousalSettings.Zone != null) && (C.ArousalSettings.Active != null) && (C.ArousalSettings.Active != "Inactive"))
@@ -330,7 +335,7 @@ function DialogFacialExpressionsBuild() {
 		Item.MenuExpression1 = (Index < 0) ? ExpressionList[ExpressionList.length - 1] : (Index == 0) ? null : ExpressionList[Index - 1];
 		Item.MenuExpression2 = Item.CurrentExpression;
 		Item.MenuExpression3 = (Index < 0) ? ExpressionList[0] : (Index == ExpressionList.length - 1) ? null : ExpressionList[Index + 1];
-		Item.MenuExpression4 = (Index < 0) ? ExpressionList[1] : (Index == ExpressionList.length - 2) ? null : ExpressionList[Index + 2];
+		Item.MenuExpression4 = (Index < 0) ? ExpressionList[1] : (Index == ExpressionList.length - 2) ? null : ExpressionList[(Index + 2) % (ExpressionList.length + 1)];
 		DialogFacialExpressions.push(Item);
 	}
 	// Temporary (?) solution to make the facial elements appear in a more logical order, as their alphabetical order currently happens to match up
@@ -704,7 +709,7 @@ function DialogItemClick(ClickItem) {
 						// Prevent two unique gags being equipped. Also check if selfbondage is allowed for the item if used on self
 						if (ClickItem.Asset.Prerequisite == "GagUnique" && C.Pose.indexOf("GagUnique") >= 0) DialogSetText("CanOnlyEquipOneOfThisGag");
 						else if (ClickItem.Asset.Prerequisite == "GagCorset" && C.Pose.indexOf("GagCorset") >= 0) DialogSetText("CannotUseMultipleCorsetGags");
-						else if (ClickItem.Asset.SelfBondage || (C.ID != 0) || (CurrentScreen == "Photographic")) DialogProgressStart(C, CurrentItem, ClickItem);
+						else if (ClickItem.Asset.SelfBondage || (C.ID != 0) || DialogAlwaysAllowRestraint()) DialogProgressStart(C, CurrentItem, ClickItem);
 						else DialogSetText("CannotUseOnSelf");
 
 					} else {
@@ -741,6 +746,13 @@ function DialogItemClick(ClickItem) {
 // When the user clicks on a dialog option
 function DialogClick() {
 
+	// If the user clicked the Up button, move the character up to the top of the screen
+	if ((CurrentCharacter.HeightModifier < -90) && (CurrentCharacter.FocusGroup != null) && (MouseX >= 510) && (MouseX < 600) && (MouseY >= 25) && (MouseY < 115)) {
+		CharacterAppearanceForceTopPosition = true;
+		CurrentCharacter.HeightModifier = 0;
+		return;
+	}
+
 	// If the user clicked on the interaction character or herself, we check to build the item menu
 	if ((CurrentCharacter.AllowItem || (MouseX < 500)) && (MouseX >= 0) && (MouseX <= 1000) && (MouseY >= 0) && (MouseY < 1000) && ((CurrentCharacter.ID != 0) || (MouseX > 500)) && (DialogIntro() != "")) {
 		DialogLeaveItemMenu();
@@ -762,6 +774,12 @@ function DialogClick() {
 						DialogText = DialogTextDefault;
 						break;
 					}
+	}
+
+	// If the user clicked anywhere outside the current character item zones, ensure the position is corrected
+	if (CharacterAppearanceForceTopPosition == true && ((MouseX < 500) || (MouseX > 1000) || (CurrentCharacter.FocusGroup == null))) {
+		CharacterAppearanceForceTopPosition = false;
+		CharacterApperanceSetHeightModifier(CurrentCharacter);
 	}
 
 	// In activity mode, we check if the user clicked on an activity box
@@ -963,7 +981,8 @@ function DialogChangeItemColor(C, Color) {
 function DialogDrawActivityMenu(C) {
 
 	// Gets the default text that will reset after 5 seconds
-	if (DialogTextDefault == "") DialogTextDefault = DialogFind(Player, "SelectActivity");
+	var SelectedGroup = (Player.FocusGroup != null) ? Player.FocusGroup.Description : CurrentCharacter.FocusGroup.Description;
+	if (DialogTextDefault == "") DialogTextDefault = DialogFind(Player, "SelectActivityGroup").replace("GroupName", SelectedGroup.toLowerCase());
 	if (DialogTextDefaultTimer < CommonTime()) DialogText = DialogTextDefault;
 
 	// Draws the top menu text & icons
@@ -994,12 +1013,13 @@ function DialogDrawActivityMenu(C) {
 function DialogDrawItemMenu(C) {
 
 	// Gets the default text that will reset after 5 seconds
-	if (DialogTextDefault == "") DialogTextDefault = DialogFind(Player, "SelectItem");
+	var SelectedGroup = (Player.FocusGroup != null) ? Player.FocusGroup.Description : CurrentCharacter.FocusGroup.Description;
+	if (DialogTextDefault == "") DialogTextDefault = DialogFind(Player, "SelectItemGroup").replace("GroupName", SelectedGroup.toLowerCase());
 	if (DialogTextDefaultTimer < CommonTime()) DialogText = DialogTextDefault;
 
 	// Draws the top menu text & icons
 	if (DialogMenuButton == null) DialogMenuButtonBuild((Player.FocusGroup != null) ? Player : CurrentCharacter);
-	if ((DialogColor == null) && Player.CanInteract() && (DialogProgress < 0) && !InventoryGroupIsBlocked(C) && DialogMenuButton.length < 8) DrawTextWrap((!DialogItemPermissionMode) ? DialogText : DialogFind(Player, "DialogPermissionMode"), 1000, 0, 975 - DialogMenuButton.length * 110, 125, "White");
+	if ((DialogColor == null) && Player.CanInteract() && (DialogProgress < 0) && !InventoryGroupIsBlocked(C) && DialogMenuButton.length < 8) DrawTextWrap((!DialogItemPermissionMode) ? DialogText : DialogFind(Player, "DialogPermissionMode"), 1000, 0, 975 - DialogMenuButton.length * 110, 125, "White", null, 3);
 	for (var I = DialogMenuButton.length - 1; I >= 0; I--)
 		DrawButton(1885 - I * 110, 15, 90, 90, "", ((DialogMenuButton[I] == "ColorPick") && (DialogColorSelect != null)) ? DialogColorSelect : "White", "Icons/" + DialogMenuButton[I] + ".png", (DialogColor == null) ? DialogFind(Player, DialogMenuButton[I]) : null);
 
@@ -1093,6 +1113,12 @@ function DialogDrawItemMenu(C) {
 				DialogExtendItem(InventoryGet(C, DialogProgressNextItem.Asset.Group.Name));
 			} else ChatRoomPublishAction(C, DialogProgressPrevItem, DialogProgressNextItem, true);
 
+			// Reset the the character's position
+			if (CharacterAppearanceForceTopPosition == true) {
+				CharacterAppearanceForceTopPosition = false;
+				CharacterApperanceSetHeightModifier(C);
+			}
+
 			// Rebuilds the menu
 			DialogEndExpression();
 			if (C.FocusGroup != null) DialogMenuButtonBuild(C);
@@ -1157,6 +1183,11 @@ function DialogDraw() {
 		} else {
 			if (DialogActivityMode) DialogDrawActivityMenu((Player.FocusGroup != null) ? Player : CurrentCharacter);
 			else DialogDrawItemMenu((Player.FocusGroup != null) ? Player : CurrentCharacter);
+		}
+
+		// Draw the 'Up' reposition button if some zones are offscreen
+		if (CurrentCharacter != null && CurrentCharacter.HeightModifier != null && CurrentCharacter.HeightModifier < -90 && CurrentCharacter.FocusGroup != null) {
+			DrawButton(510, 25, 90, 90, "", "White", "Icons/Up.png", DialogFind(Player, "UpPosition"));
 		}
 
 	} else {
