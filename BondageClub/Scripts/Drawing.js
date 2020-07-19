@@ -49,6 +49,9 @@ function DrawLoad() {
 	MainCanvas.font = "36px Arial";
 	MainCanvas.textAlign = "center";
 	MainCanvas.textBaseline = "middle";
+	
+	// Loads the 3D engine as well
+	Draw3DLoad();
 
 }
 
@@ -118,6 +121,12 @@ function DrawArousalMeter(C, X, Y, Zoom) {
 // Refreshes the character if not all images are loaded and draw the character canvas on the main game screen
 function DrawCharacter(C, X, Y, Zoom, IsHeightResizeAllowed) {
 	if ((C != null) && ((C.ID == 0) || (Player.Effect.indexOf("BlindHeavy") < 0) || (CurrentScreen == "InformationSheet"))) {
+		
+		// Shortcuts drawing the character to 3D if needed
+		if (Draw3DEnabled) {
+			Draw3DCharacter(C, X, Y, Zoom, IsHeightResizeAllowed);
+			return;
+		}
 
 		// There's 2 different canvas, one blinking and one that doesn't
 		var seconds = new Date().getTime();
@@ -155,7 +164,8 @@ function DrawCharacter(C, X, Y, Zoom, IsHeightResizeAllowed) {
 			CanvasH.height = Canvas.height;
 			CanvasH.getContext("2d").rotate(Math.PI);
 			CanvasH.getContext("2d").translate(-Canvas.width, -Canvas.height);
-			CanvasH.getContext("2d").drawImage(Canvas, 0, 0);
+			// Render to the flipped canvas, and crop off the height modifier to prevent vertical overflow
+			CanvasH.getContext("2d").drawImage(Canvas, 0, 0, Canvas.width, Canvas.height - C.HeightModifier, 0, 0, Canvas.width, Canvas.height - C.HeightModifier);
 			Canvas = CanvasH;
 		}
 
@@ -477,7 +487,7 @@ function DrawButton(Left, Top, Width, Height, Label, Color, Image, HoveringText)
 	}
 }
 
-function DrawCheckbox(Left, Top, Width, Height, Text, IsChecked){
+function DrawCheckbox(Left, Top, Width, Height, Text, IsChecked) {
     DrawText(Text, Left + 100, Top + 33, "Black", "Gray");
     DrawButton(Left, Top, Width, Height, "", "White", IsChecked ? "Icons/Checked.png" : "");
 }
@@ -631,11 +641,14 @@ function DrawProcess() {
 	// Draws beep from online player sent by the server
 	ServerDrawBeep();
 
+	// Draws the 3D objects
+	Draw3DProcess();
+
 }
 
 // Draw the item preview box
 function DrawItemPreview(X, Y, Item) {
 	DrawRect(X, Y, 225, 275, "white");
-	DrawImageResize("Assets/" + Item.Asset.Group.Family + "/" + Item.Asset.Group.Name + "/Preview/" + Item.Asset.Name + Item.Asset.DynamicPreviewIcon(CharacterGetCurrent()) + ".png", X + 2, Y + 2, 221, 221);
+	DrawImageResize("Assets/" + Item.Asset.Group.Family + "/" + Item.Asset.DynamicGroupName + "/Preview/" + Item.Asset.Name + Item.Asset.DynamicPreviewIcon(CharacterGetCurrent()) + ".png", X + 2, Y + 2, 221, 221);
 	DrawTextFit(Item.Asset.Description, X + 110, Y + 250, 221, "black");
 }

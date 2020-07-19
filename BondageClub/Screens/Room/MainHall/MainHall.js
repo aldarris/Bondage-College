@@ -17,6 +17,7 @@ function MainHallCanTrickMaid() { return (ManagementIsClubSlave() && SarahUnlock
 function MainHallLoad() {
 	
 	// Loads the variables and dialog
+	ChatSearchSafewordAppearance = null;
 	CharacterSetActivePose(Player, null);
 	MainHallBackground = "MainHall";
 	MainHallStartEventTimer = null;
@@ -117,7 +118,7 @@ function MainHallRun() {
 	}
 
 	// Check if there's a new maid rescue event to trigger
-	if ((!Player.CanInteract() || !Player.CanWalk() || !Player.CanTalk())) {
+	if (!Player.CanInteract() || !Player.CanWalk() || !Player.CanTalk() || Player.IsShackled()) {
 		if (MainHallNextEventTimer == null) {
 			MainHallStartEventTimer = CommonTime();
 			MainHallNextEventTimer = CommonTime() + 40000 + Math.floor(Math.random() * 40000);
@@ -137,7 +138,7 @@ function MainHallRun() {
 	}
 	
 	// If we must show a progress bar for the rescue maid.  If not, we show the number of online players
-	if ((!Player.CanInteract() || !Player.CanWalk() || !Player.CanTalk()) && (MainHallStartEventTimer != null) && (MainHallNextEventTimer != null)) {
+	if ((!Player.CanInteract() || !Player.CanWalk() || !Player.CanTalk() || Player.IsShackled()) && (MainHallStartEventTimer != null) && (MainHallNextEventTimer != null)) {
 		DrawText(TextGet("RescueIsComing"), 1750, 925, "White", "Black");
 		DrawProgressBar(1525, 955, 450, 35, (1 - ((MainHallNextEventTimer - CommonTime()) / (MainHallNextEventTimer - MainHallStartEventTimer))) * 100);
 	} else DrawText(TextGet("OnlinePlayers") + " " + CurrentOnlinePlayers.toString(), 1750, 960, "White", "Black");
@@ -235,10 +236,11 @@ function MainHallClick() {
 // The maid can release the player
 function MainHallMaidReleasePlayer() {
 	if (MainHallMaid.CanInteract()) {
-		for(var D = 0; D < MainHallMaid.Dialog.length; D++)
+		for (var D = 0; D < MainHallMaid.Dialog.length; D++)
 			if ((MainHallMaid.Dialog[D].Stage == "0") && (MainHallMaid.Dialog[D].Option == null))
 				MainHallMaid.Dialog[D].Result = DialogFind(MainHallMaid, "AlreadyReleased");
 		CharacterRelease(Player);
+		CharacterReleaseFromLock(Player, "CombinationPadlock");
 		MainHallMaid.Stage = "10";
 	} else MainHallMaid.CurrentDialog = DialogFind(MainHallMaid, "CannotRelease");
 }
@@ -246,7 +248,7 @@ function MainHallMaidReleasePlayer() {
 // If the maid is angry, she might gag or tie up the player
 function MainHallMaidAngry() {
 	if ((ReputationGet("Dominant") < 30) && !MainHallIsHeadMaid) {
-		for(var D = 0; D < MainHallMaid.Dialog.length; D++)
+		for (var D = 0; D < MainHallMaid.Dialog.length; D++)
 			if ((MainHallMaid.Dialog[D].Stage == "PlayerGagged") && (MainHallMaid.Dialog[D].Option == null))
 				MainHallMaid.Dialog[D].Result = DialogFind(MainHallMaid, "LearnedLesson");
 		ReputationProgress("Dominant", 1);
@@ -320,4 +322,8 @@ function MainHallMaidIntroduction() {
 // Flag the introduction as done
 function MainHallMaidIntroductionDone() {
 	LogAdd("IntroductionDone", "MainHall");
+}
+
+function MainHallKeyDown() {
+	Draw3DKeyDown();
 }
