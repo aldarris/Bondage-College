@@ -8,7 +8,10 @@ var ChatAdminLocked = false;
 var ChatAdminBackgroundSelected = null;
 var ChatAdminTemporaryData = null;
 
-// When the chat admin screens loads
+/**
+ * Loads the chat Admin screen properties and creates the inputs
+ * @returns {void} - Nothing
+ */
 function ChatAdminLoad() {
 
 	// If the current room background isn't valid, we pick the first one
@@ -49,7 +52,10 @@ function ChatAdminLoad() {
 
 }
 
-// When the chat Admin screen runs
+/**
+ * When the chat Admin screen runs, draws the screen
+ * @returns {void} - Nothing
+ */
 function ChatAdminRun() {
 
 	// Draw the main controls
@@ -64,28 +70,31 @@ function ChatAdminRun() {
 	ElementPosition("InputAdminList", 390, 685, 530, 300);
 	DrawText(TextGet("RoomBanList"), 960, 490, "Black", "Gray");
 	ElementPosition("InputBanList", 960, 640, 530, 210);
-	DrawButton(695, 770, 250, 65, TextGet("QuickbanBlackList"), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4");
-	DrawButton(975, 770, 250, 65, TextGet("QuickbanGhostList"), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4");
+	DrawButton(695, 770, 250, 65, TextGet("QuickbanBlackList"), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", null, null, !ChatRoomPlayerIsAdmin());
+	DrawButton(975, 770, 250, 65, TextGet("QuickbanGhostList"), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", null, null, !ChatRoomPlayerIsAdmin());
 
 	// Background selection
 	DrawImageResize("Backgrounds/" + ChatAdminBackgroundSelect + "Dark.jpg", 1300, 75, 600, 350);
 	DrawBackNextButton(1350, 450, 500, 65, DialogFind(Player, ChatAdminBackgroundSelect), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", null,
 		() => DialogFind(Player, (ChatAdminBackgroundIndex == 0) ? ChatCreateBackgroundList[ChatCreateBackgroundList.length - 1] : ChatCreateBackgroundList[ChatAdminBackgroundIndex - 1]),
-		() => DialogFind(Player, (ChatAdminBackgroundIndex >= ChatCreateBackgroundList.length - 1) ? ChatCreateBackgroundList[0] : ChatCreateBackgroundList[ChatAdminBackgroundIndex + 1]));
-	DrawButton(1450, 550, 300, 65, TextGet("ShowAll"),  ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4");
+		() => DialogFind(Player, (ChatAdminBackgroundIndex >= ChatCreateBackgroundList.length - 1) ? ChatCreateBackgroundList[0] : ChatCreateBackgroundList[ChatAdminBackgroundIndex + 1]), !ChatRoomPlayerIsAdmin());
+	DrawButton(1450, 550, 300, 65, TextGet("ShowAll"),  ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", null, null, !ChatRoomPlayerIsAdmin());
 
 	// Private and Locked check boxes
 	DrawText(TextGet("RoomPrivate"), 1384, 740, "Black", "Gray");
-	DrawButton(1486, 708, 64, 64, "", ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", ChatAdminPrivate ? "Icons/Checked.png" : "");
+	DrawButton(1486, 708, 64, 64, "", ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", ChatAdminPrivate ? "Icons/Checked.png" : "", null, !ChatRoomPlayerIsAdmin());
 	DrawText(TextGet("RoomLocked"), 1684, 740, "Black", "Gray");
-	DrawButton(1786, 708, 64, 64, "", ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", ChatAdminLocked ? "Icons/Checked.png" : "");
+	DrawButton(1786, 708, 64, 64, "", ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", ChatAdminLocked ? "Icons/Checked.png" : "", null, !ChatRoomPlayerIsAdmin());
 
 	// Save & Cancel/Exit buttons + help text
-	DrawButton(1325, 840, 250, 65, TextGet("Save"), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4");
+	DrawButton(1325, 840, 250, 65, TextGet("Save"), ChatRoomPlayerIsAdmin() ? "White" : "#ebebe4", null, null, !ChatRoomPlayerIsAdmin());
 	DrawButton(1625, 840, 250, 65, TextGet(ChatRoomPlayerIsAdmin() ? "Cancel" : "Exit"), "White");
 }
 
-// When the player clicks in the chat Admin screen
+/**
+ * Handles the click events on the admin screen. Is called from CommonClick()
+ * @returns {void} - Nothing
+ */
 function ChatAdminClick() {
 
 	// When the user cancels/exits
@@ -131,7 +140,10 @@ function ChatAdminClick() {
 	}
 }
 
-// When the user exit from this screen
+/**
+ * Handles exiting from the admin screen, removes the inputs and resets the state of the variables
+ * @returns {void} - Nothing
+ */
 function ChatAdminExit() {
 	ChatAdminBackgroundSelected = null;
 	ChatAdminTemporaryData = null;
@@ -143,14 +155,21 @@ function ChatAdminExit() {
 	CommonSetScreen("Online", "ChatRoom");
 }
 
-// When the server sends a response, if it was updated properly we exit, if not we show the error
+/**
+ * Handles the reception of the server response after attempting to update a chatroom: Leaves the admin screen or shows an error message
+ * @param {string} data - Response from the server ("Updated" or error message)
+ * @returns {void} - Nothing
+ */
 function ChatAdminResponse(data) {
 	if ((data != null) && (typeof data === "string") && (data != ""))
 		if (data === "Updated") ChatAdminExit();
 		else ChatAdminMessage = "Response" + data;
 }
 
-// Sends the chat room update packet to the server and waits for the answer
+/**
+ * Sends the chat room data packet to the server. The response will be handled by ChatAdminResponse once it is received
+ * @returns {void} - Nothing
+ */
 function ChatAdminUpdateRoom() {
 	var UpdatedRoom = {
 		Name: ElementValue("InputName").trim(),

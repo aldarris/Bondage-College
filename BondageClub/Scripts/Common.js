@@ -1,8 +1,6 @@
 // Main variables
 "use strict";
 var Player;
-var MouseX = 0;
-var MouseY = 0;
 var KeyPress = "";
 var CurrentModule;
 var CurrentScreen;
@@ -74,14 +72,14 @@ function CommonDetectMobile() {
 
 	// First check
 	var mobile = ['iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone', 'iemobile', 'mobile/', 'webos', 'kindle'];
-	for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
+	for (let i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
 
 	// IPad pro check
 	if (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform)) return true;
 
 	// Second check
 	if (sessionStorage.desktop) return false;
-	else if (localStorage.mobile) return true;	
+	else if (localStorage.mobile) return true;
 
 	// If nothing is found, we assume desktop
 	return false;
@@ -120,7 +118,7 @@ function CommonParseCSV(str) {
 	var col;
 
 	// iterate over each character, keep track of current row and column (of the returned array)
-	for (var row = col = c = 0; c < str.length; c++) {
+	for (let row = col = c = 0; c < str.length; c++) {
 		var cc = str[c], nc = str[c + 1];        // current character, next character
 		arr[row] = arr[row] || [];             // create a new row if necessary
 		arr[row][col] = arr[row][col] || '';   // create a new column (start with empty string) if necessary
@@ -175,7 +173,7 @@ function CommonReadCSV(Array, Path, Screen, File) {
 	// If a translation file is available, we open the txt file and keep it in cache
 	var TranslationPath = FullPath.replace(".csv", "_" + TranslationLanguage + ".txt");
 	if (TranslationAvailable(TranslationPath))
-		CommonGet(TranslationPath, function() {
+		CommonGet(TranslationPath, function () {
 			if (this.status == 200) TranslationCache[TranslationPath] = TranslationParseTXT(this.responseText);
 		});
 
@@ -190,7 +188,7 @@ function CommonReadCSV(Array, Path, Screen, File) {
 function CommonGet(Path, Callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", Path);
-	xhr.onreadystatechange = function () { if (this.readyState == 4) Callback.bind(this)(); };
+	xhr.onreadystatechange = function () { if (this.readyState == 4) Callback.bind(this)(xhr); };
 	xhr.send(null);
 }
 
@@ -203,18 +201,6 @@ function CommonClick() {
 		CommonDynamicFunction(CurrentScreen + "Click()");
 	else
 		DialogClick();
-}
-
-/**
- * Check if the click was within the boundaries of a given zone (Useful for UI components)
- * @param {number} Left - Starting position on the X axis
- * @param {number} Top - Starting position on the Y axis
- * @param {number} Width - Width of the zone
- * @param {number} Height - Height of the zone
- * @returns {boolean} - Returns TRUE if the click occured on the given zone
- */
-function CommonIsClickAt(Left, Top, Width, Height) {
-	return (MouseX >= Left) && (MouseX <= Left + Width) && (MouseY >= Top) && (MouseY <= Top + Height);
 }
 
 /**
@@ -262,7 +248,7 @@ function CommonDynamicFunctionParams(FunctionName) {
 	var openParenthesisIndex = FunctionName.indexOf("(");
 	var closedParenthesisIndex = FunctionName.indexOf(")", openParenthesisIndex);
 	var Params = FunctionName.substring(openParenthesisIndex + 1, closedParenthesisIndex).split(",");
-	for (var P = 0; P < Params.length; P++)
+	for (let P = 0; P < Params.length; P++)
 		Params[P] = Params[P].trim().replace('"', '').replace('"', '')
 	FunctionName = FunctionName.substring(0, openParenthesisIndex);
 	if ((FunctionName.indexOf("Dialog") != 0) && (FunctionName.indexOf("Inventory") != 0) && (FunctionName.indexOf(CurrentScreen) != 0)) FunctionName = CurrentScreen + FunctionName;
@@ -360,7 +346,7 @@ function CommonRandomItemFromList(ItemPrevious, ItemList) {
 function CommonConvertStringToArray(s) {
 	var arr = [];
 	if (s != "") {
-		arr = s.split(',').map(Number).reduce((list,curr) => {
+		arr = s.split(',').map(Number).reduce((list, curr) => {
 			if (!((curr === false) || Number.isNaN(curr))) list.push(curr);
 			return list;
 		}, []);
@@ -375,7 +361,7 @@ function CommonConvertStringToArray(s) {
  */
 function CommonConvertArrayToString(Arr) {
 	var S = "";
-	for (var P = 0; P < Arr.length; P++) {
+	for (let P = 0; P < Arr.length; P++) {
 		if (P != 0) S = S + ",";
 		S = S + Arr[P].toString();
 	}
@@ -383,10 +369,60 @@ function CommonConvertArrayToString(Arr) {
 }
 
 /**
- * Waits for a given time (Used to wait for the server)
- * @param {number} MS - Time to wait in ms 
+ * Checks whether two item colors are equal. An item color may either be a string or an array of strings.
+ * @param {string|string[]} C1 - The first color to check
+ * @param {string|string[]} C2 - The second color to check
+ * @returns {boolean} - TRUE if C1 and C2 represent the same item color, FALSE otherwise
  */
-function CommonWait(MS) {
-	var waitUntil = new Date().getTime() + MS;
-	while(new Date().getTime() < waitUntil) true;
+function CommonColorsEqual(C1, C2) {
+	if (Array.isArray(C1) && Array.isArray(C2)) {
+		return CommonArraysEqual(C1, C2);
+	}
+	return C1 === C2;
+}
+
+/**
+ * Checks whether two arrays are equal. The arrays are considered equal if they have the same length and contain the same items in the same
+ * order, as determined by === comparison
+ * @param {*[]} a1 - The first array to compare
+ * @param {*[]} a2 - The second array to compare
+ * @returns {boolean} - TRUE if both arrays have the same length and contain the same items in the same order, FALSE otherwise
+ */
+function CommonArraysEqual(a1, a2) {
+	return a1.length === a2.length && a1.every((item, i) => item === a2[i]);
+}
+
+/**
+ * Creates a debounced wrapper for the provided function with the provided wait time. The wrapped function will not be called as long as
+ * the debounced function continues to be called. If the debounced function is called, and then not called again within the wait time, the
+ * wrapped function will be called.
+ * @param {function} func - The function to debounce
+ * @param {number} wait - The wait time in milliseconds that needs to pass after calling the debounced function before the wrapped function
+ * is invoked
+ * @returns {function} - A debounced version of the provided function
+ */
+function CommonDebounce(func, wait) {
+	let timeout, args, context, timestamp, result;
+	wait = typeof wait === "number" ? wait : 100;
+
+	function later() {
+		const last = CommonTime() - timestamp;
+		if (last >= 0 && last < wait) {
+			timeout = setTimeout(later, wait - last);
+		} else {
+			timeout = null;
+			result = func.apply(context, args);
+			context = args = null;
+		}
+	}
+
+	return function () {
+		context = this;
+		args = arguments;
+		timestamp = CommonTime();
+		if (!timeout) {
+			timeout = setTimeout(later, wait);
+		}
+		return result;
+	};
 }
