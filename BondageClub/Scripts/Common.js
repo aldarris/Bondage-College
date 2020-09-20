@@ -9,36 +9,6 @@ var CurrentOnlinePlayers = 0;
 var CommonIsMobile = false;
 var CommonCSVCache = {};
 var CutsceneStage = 0;
-/**
- * List of all the common backgrounds.
- * @constant 
- * @type {string[]}
- */
-var CommonBackgroundList = [
-	"Introduction", "KidnapLeague", "MaidQuarters", "MainHall", "Management", "Private", "Shibari", "MaidCafe", 
-	"HorseStable", "Nursery", "Bedroom", "PrisonHall", "Kennels",
-	"BDSMRoomBlue", "BDSMRoomPurple", "BDSMRoomRed", "BondageBedChamber",
-	"CeremonialVenue", "WeddingRoom", "WeddingArch", "WeddingBeach",
-	"ParkDay", "ParkNight", "Gardens", 
-	"OldFarm",
-	"ParkWinter", "XmasEve", "XmasDay", "StreetNight", "SnowyStreet", "DystopianCity",
-	"IndoorPool", "OutdoorPool", "PublicBath", "Onsen", "Beach", "BeachCafe", "BeachHotel",
-	"RustySaloon",
-	"PirateIsland", "PirateIslandNight", "ShipDeck", "CaptainCabin", "Shipwreck", 
-	"UnderwaterOne",
-	"MedinaMarket",	"SheikhPrivate", "SheikhTent",
-	"ForestPath", "WoodenCabin", "DeepForest", "ForestCave", "SpookyForest", "WitchWood", "DesolateVillage",
-	"ThroneRoom", "SecretChamber", "Dungeon", "DungeonRuin", "Confessions",
-	"AncientRuins", "JungleTemple", "SunTemple",
-	"AlchemistOffice", "ResearchPrep", "ResearchProgress",
-	"MiddletownSchool", "SlipperyClassroom", "LockerRoom", "SchoolHospital", "SchoolRuins", "SlumRuins", 
-	"SlumApartment", "AbandonedBuilding", "AbandonedSideRoom", "Industrial", "BackAlley", "CreepyBasement", "Cellar", "SlumCellar",
-	"VaultCorridor", "SciFiCell", "SpaceCaptainBedroom",
-	"HellEntrance", "HeavenEntrance", 
-	"BarRestaurant", "LostVages",
-	"ChillRoom", "Boudoir", "Kitchen", "DiningRoom", "CozyLivingRoom", "TiledBathroom",
-	"RooftopParty", "PartyBasement", "CosyChalet", "BalconyNight"
-];
 
 /**
  * Checks if a variable is a number
