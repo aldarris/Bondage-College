@@ -2695,16 +2695,10 @@ var AssetFemale3DCG = [
 				]
 			},
 			{
-				Name: "PumpkinHead", Priority: 70, Value: 40, Difficulty: 2, Time: 10, Random: false, AllowLock: false,  Hide: [], HideItem: ["ItemHeadSnorkel"], Block: ["ItemMouth", "ItemMouth2", "ItemMouth3", "ItemNeck", "ItemHead", "ItemNose", "ItemEars"]
-						,Alpha: [
-							{ Group: ["HairFront"], Masks: [[150, 0, 200, 80]] }
-							,{ Group: ["Hat"], Masks: [[150, 0, 200, 80]] }
-							,{ Group: ["HairAccessory1"], Masks: [[150, 0, 200, 80]] }
-							,{ Group: ["HairAccessory2"], Masks: [[150, 0, 200, 80]] }
-						], Layer: [
-							{ Name: "Front", AllowColorize: true, Priority: 70},
-							{ Name: "Back", AllowColorize: true, Priority: 1 }
-						]
+				Name: "PumpkinHead", Priority: 70, Value: 40, Difficulty: 2, Time: 10, Random: false, AllowLock: false,  Hide: [], HideItem: ["ItemHeadSnorkel"], Block: ["ItemMouth", "ItemMouth2", "ItemMouth3", "ItemNeck", "ItemHead", "ItemNose", "ItemEars"], Alpha: [{ Masks: [[150, 0, 200, 80]] }], Layer: [
+					{ Name: "Front", AllowColorize: true, Priority: 70},
+					{ Name: "Back", AllowColorize: true, Priority: 1 }
+				]
 			},			
 			{ Name: "SackHood", Fetish: ["Rope"], Value: 20, Difficulty: 3, Time: 5, Hide: ["HairFront", "HairBack", "Glasses", "ItemMouth", "ItemMouth2", "ItemMouth3", "HairAccessory1", "HairAccessory2", "Hat", "Mask"], HideItem: ["ItemHeadSnorkel"], Effect: ["Prone", "BlindHeavy", "BlockMouth"], Block: ["ItemEars", "ItemMouth", "ItemMouth2", "ItemMouth3", "ItemHead", "ItemNose"] },
 			{ Name: "LeatherHoodSensDep", Fetish: ["Leather"], Value: 100, Difficulty: 50, Time: 15, AllowLock: true, DefaultColor: "#555555", Prerequisite: ["NotHogtied", "CanUseAlphaHood"], Hide: ["Head", "HairFront", "HairBack", "Glasses", "ItemMouth", "ItemMouth2", "ItemMouth3", "Hat", "HairAccessory1", "HairAccessory2", "Mask"], Effect: ["BlindHeavy", "DeafHeavy", "Prone", "GagHeavy", "BlockMouth"], Block: ["ItemMouth", "ItemMouth2", "ItemMouth3", "ItemEars", "ItemNeck", "ItemHead", "ItemNose"] },
@@ -2807,7 +2801,7 @@ var AssetFemale3DCG = [
 			{ Name: "BondageBench", Fetish: ["Leather"], Priority: 1, Value: 250, SelfBondage: 4, Time: 10, RemoveTime: 10, Prerequisite: ["NotKneeling", "AllFours", "NotSuspended", "NotHogtied", "NoFeetSpreader"], SetPose: ["LegsClosed"], Effect: ["Block", "Prone", "Freeze", "Mounted"], Extended: true, RemoveAtLogin: true },
 			{ Name: "TeddyBear", Fetish: ["ABDL"], Priority: 34, Value: 30, Difficulty: -10, Time: 5, IsRestraint: false, AllowPose: ["AllFours", "Hogtied", "TapedHands", "BackBoxTie", "BackCuffs", "BackElbowTouch", "Bolero", "Horse", "StraitDressOpen", "Yoked"], Effect: [], AllowType: ["Bear", "Fox", "Kitty", "Pup", "Bunny", "Pony"], Extended: true, RemoveAtLogin: true },
 			{ Name: "LittleMonster", Priority: 34, Value: 40, Difficulty: -10, Time: 5, IsRestraint: false, AllowPose: ["AllFours", "Hogtied", "TapedHands", "BackBoxTie", "BackCuffs", "BackElbowTouch", "Bolero", "Horse", "StraitDressOpen", "Yoked"], Effect: [], AllowType: ["Black", "Red", "Green", "Blue"], Extended: true, RemoveAtLogin: true },
-			{ Name: "Familiar", Priority: 6, Value: 240, Difficulty: -10, Time: 5, IsRestraint: false, AllowPose: ["AllFours", "Hogtied", "TapedHands", "BackBoxTie", "BackCuffs", "BackElbowTouch", "Bolero", "Horse", "StraitDressOpen", "Yoked"], Effect: [], AllowType: ["Bat", "Cat", "Skeleton", "Parrot"], Extended: true, RemoveAtLogin: true },
+			{ Name: "Familiar", Priority: 6, Value: 200, Difficulty: -10, Time: 5, IsRestraint: false, AllowPose: ["AllFours", "Hogtied", "TapedHands", "BackBoxTie", "BackCuffs", "BackElbowTouch", "Bolero", "Horse", "StraitDressOpen", "Yoked"], Effect: [], AllowType: ["Bat", "Cat", "Skeleton", "Parrot"], Extended: true, RemoveAtLogin: true },
 			{
 				Name: "OneBarPrison", Fetish: ["Metal"], Priority: 16, Value: 75, Difficulty: 8, SelfBondage: 2, Time: 20, AllowLock: true, Prerequisite: ["AccessVulva", "AllFours", "LegsOpen", "NotSuspended", "NotHogtied", "NotHorse", "NotKneeling", "NotChaste", "StraitDressOpen"], SetPose: ["LegsOpen"], Effect: ["FillVulva", "Prone", "Freeze", "Mounted"], Block: ["ItemPelvis", "ItemLegs", "ItemVulva", "ItemFeet"], Layer: [
 					{ Name: "Bar", AllowColorize: true },
