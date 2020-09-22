@@ -2818,7 +2818,7 @@ var AssetFemale3DCG = [
 					{Name:"Open", Priority:61,  AllowTypes:["", "Open"]},
 					{Name:"Closed", Priority:62, AllowTypes:["Closed"]}
 				],
-				Extended:true, ExtenRemoveAtLogin: false, AllowType:["Open", "Closed"]},
+				Extended:true, RemoveAtLogin: false, AllowType:["Open", "Closed"]},
 			{
 				Name: "OneBarPrison", Fetish: ["Metal"], Priority: 16, Value: 75, Difficulty: 8, SelfBondage: 2, Time: 20, AllowLock: true, Prerequisite: ["AccessVulva", "AllFours", "LegsOpen", "NotSuspended", "NotHogtied", "NotHorse", "NotKneeling", "NotChaste", "StraitDressOpen"], SetPose: ["LegsOpen"], Effect: ["FillVulva", "Prone", "Freeze", "Mounted"], Block: ["ItemPelvis", "ItemLegs", "ItemVulva", "ItemFeet"], Layer: [
 					{ Name: "Bar", AllowColorize: true },
