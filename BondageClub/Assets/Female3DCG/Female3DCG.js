@@ -2826,19 +2826,19 @@ var AssetFemale3DCG = [
 			{ Name: "Familiar", Priority: 6, Value: 200, Difficulty: -10, Time: 5, IsRestraint: false, AllowPose: ["AllFours", "Hogtied", "TapedHands", "BackBoxTie", "BackCuffs", "BackElbowTouch", "Bolero", "Horse", "StraitDressOpen", "Yoked"], Effect: [], AllowType: ["Bat", "Cat", "Skeleton", "Parrot"], Extended: true, RemoveAtLogin: true },
 			{ Name: "Coffin", Priority:70, Value: 240,  Top: -150, Left:10, Difficulty: 50, SelfBondage: 1, Time: 15, RemoveTime: 10, AllowLock: true, Audio: "LockLarge", Prerequisite: ["AllFours", "NotSuspended", "NotHogtied", "NotHorse", "NotKneeling", "NoFeetSpreader"], SetPose: ["LegsClosed"], AllowEffect: ["Freeze", "GagMedium", "Prone", "Enclose", "BlindLight"],
 				Layer: [
-					{Name:"Inside", Priority:1, HasType: false}, 
-					{Name:"Frame", Priority:60, HasType: false, ColorGroup:"Frame", Alpha: [{ Masks: [
+					{Name:"Inside", Priority:1, HasType: false},
+					{Name:"Frame", Priority:60, ColorGroup: "Main", HasType: false, Alpha: [{ Masks: [
 						[0, 0, 500, 20],  //Above 
 						[0, 950, 500, 50],  //Below
 						[0, 0, 160, 1000], //Left side is covered by lid
 						[365, 0, 135, 1000], //Triangle approx of right side
-						[355, 500, 15, 500], 
+						[355, 500, 15, 500],
 						[350, 600, 5, 400],
 						[345, 700, 5, 300],
 						[340, 800, 5, 200]
 					]}]},
-					{Name:"Open", Priority:61, ColorGroup:"Frame", AllowTypes:["", "Open"]},
-					{Name:"Closed", Priority:62, ColorGroup:"Frame", AllowTypes:["Closed"]}
+					{Name:"Open", Priority:61, ColorGroup:"Main", AllowTypes:["", "Open"]},
+					{Name:"Closed", Priority:62, ColorGroup:"Main", AllowTypes:["Closed"]}
 				],
 				Extended:true, RemoveAtLogin: true, AllowType:["Open", "Closed"]},
 			{
