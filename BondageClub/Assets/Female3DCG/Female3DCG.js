@@ -2805,7 +2805,7 @@ var AssetFemale3DCG = [
 			{ Name: "Coffin", Priority:70, Value: 240,  Top: -150, Left:10, Difficulty: 50, SelfBondage: 1, Time: 15, RemoveTime: 10, AllowLock: true, Audio: "LockLarge", Prerequisite: ["AllFours", "NotSuspended", "NotHogtied", "NotHorse", "NotKneeling", "NoFeetSpreader"], SetPose: ["LegsClosed"], AllowEffect: ["Freeze", "GagMedium", "Prone", "Enclose", "BlindLight"],
 				Layer: [
 					{Name:"Inside", Priority:1, HasType: false}, 
-					{Name:"Frame", Priority:60, HasType: false, Alpha: [{ Masks: [
+					{Name:"Frame", Priority:60, HasType: false, ColorGroup:"Frame", Alpha: [{ Masks: [
 						[0, 0, 500, 20],  //Above 
 						[0, 950, 500, 50],  //Below
 						[0, 0, 160, 1000], //Left side is covered by lid
@@ -2815,10 +2815,10 @@ var AssetFemale3DCG = [
 						[345, 700, 5, 300],
 						[340, 800, 5, 200]
 					]}]},
-					{Name:"Open", Priority:61,  AllowTypes:["", "Open"]},
-					{Name:"Closed", Priority:62, AllowTypes:["Closed"]}
+					{Name:"Open", Priority:61, ColorGroup:"Frame", AllowTypes:["", "Open"]},
+					{Name:"Closed", Priority:62, ColorGroup:"Frame", AllowTypes:["Closed"]}
 				],
-				Extended:true, RemoveAtLogin: false, AllowType:["Open", "Closed"]},
+				Extended:true, RemoveAtLogin: true, AllowType:["Open", "Closed"]},
 			{
 				Name: "OneBarPrison", Fetish: ["Metal"], Priority: 16, Value: 75, Difficulty: 8, SelfBondage: 2, Time: 20, AllowLock: true, Prerequisite: ["AccessVulva", "AllFours", "LegsOpen", "NotSuspended", "NotHogtied", "NotHorse", "NotKneeling", "NotChaste", "StraitDressOpen"], SetPose: ["LegsOpen"], Effect: ["FillVulva", "Prone", "Freeze", "Mounted"], Block: ["ItemPelvis", "ItemLegs", "ItemVulva", "ItemFeet"], Layer: [
 					{ Name: "Bar", AllowColorize: true },
