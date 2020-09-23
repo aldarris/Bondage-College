@@ -2717,9 +2717,9 @@ var AssetFemale3DCG = [
 				]
 			},
 			{
-				Name: "PumpkinHead", Priority: 70, Value: 40, Difficulty: 2, Time: 10, Random: false, AllowLock: false,  Hide: [], HideItem: ["ItemHeadSnorkel"], Block: ["ItemMouth", "ItemMouth2", "ItemMouth3", "ItemNeck", "ItemHead", "ItemNose", "ItemEars"], Alpha: [{ Masks: [[150, 0, 200, 80]] }], Layer: [
-					{ Name: "Front", AllowColorize: true, Priority: 70},
-					{ Name: "Back", AllowColorize: true, Priority: 1 }
+				Name: "PumpkinHead", Priority: 54, Value: 40, Difficulty: 2, Time: 10, Random: false, AllowLock: false,  Hide: [], HideItem: ["ItemHeadSnorkel"], Block: ["ItemMouth", "ItemMouth2", "ItemMouth3", "ItemNeck", "ItemHead", "ItemNose", "ItemEars"],
+					Alpha: [{ Masks: [[150, 0, 200, 80]] }],
+					Layer: [{ Name: "Front", AllowColorize: true, Priority: 70},{ Name: "Back", AllowColorize: true, Priority: 1 }
 				]
 			},
 			{ Name: "SackHood", Fetish: ["Rope"], Value: 20, Difficulty: 3, Time: 5, Hide: ["HairFront", "HairBack", "Glasses", "ItemMouth", "ItemMouth2", "ItemMouth3", "HairAccessory1", "HairAccessory2", "HairAccessory3", "Hat", "Mask"], HideItem: ["ItemHeadSnorkel"], Effect: ["Prone", "BlindHeavy", "BlockMouth"], Block: ["ItemEars", "ItemMouth", "ItemMouth2", "ItemMouth3", "ItemHead", "ItemNose"] },
