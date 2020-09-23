@@ -138,6 +138,8 @@ ItemDevicesBedMattress,Mattress
 ItemDevicesBedHeadboard,Headboard
 ItemDevicesCoffinInside,Velvet
 ItemDevicesCoffinFrame,Frame
+ItemDevicesCoffinOpen,Lid (open)
+ItemDevicesCoffinClosed,Lid (closed)
 ItemAddonCoversOuter,Outer
 ItemAddonCoversInner,Inner
 ItemDevicesCageFrame,Frame
