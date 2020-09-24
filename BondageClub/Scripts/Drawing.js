@@ -380,7 +380,6 @@ function DrawImageCanvas(Source, Canvas, X, Y, AlphaMasks) {
 	if (!Img.complete) return false;
 	if (!Img.naturalWidth) return true;
 	if (AlphaMasks && AlphaMasks.length) {
-		console.log(Source + " " + AlphaMasks);
 		var tmpCanvas = document.createElement("canvas");
 		tmpCanvas.width = Img.width;
 		tmpCanvas.height = Img.height;
