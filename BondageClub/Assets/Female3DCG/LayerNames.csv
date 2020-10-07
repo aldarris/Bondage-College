@@ -157,12 +157,11 @@ ItemNeckOrnateCollarCollar,Collar
 ItemNeckOrnateCollarGem,Gems
 ItemDevicesBedPillow,Pillow
 ItemDevicesBedMattress,Mattress
-ItemDevicesBedHeadboard,Headboard
+ItemDevicesBedBedFrame,Frame
 ItemDevicesCoffinInside,Velvet
 ItemDevicesCoffinFrame,Frame
 ItemDevicesCoffinOpen,Lid (open)
 ItemDevicesCoffinClosed,Lid (closed)
-ItemDevicesBedBedFrame,Frame
 ItemAddonCoversOuter,Outer
 ItemAddonCoversInner,Inner
 ItemDevicesCageFrame,Frame
