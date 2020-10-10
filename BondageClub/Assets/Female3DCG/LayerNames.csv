@@ -8,6 +8,8 @@ ClothCorsetShirtShirt,Shirt
 ClothCorsetShirtCorset,Corset
 ClothAccessoryBouquetBase,Holder
 ClothAccessoryBouquetFlowers,Flowers
+ClothAccessoryCapeFront,Front
+ClothAccessoryCapeBack,Back
 NecklaceNecklaceLockChain,Chain
 NecklaceNecklaceLockLock,Lock
 NecklaceNecklaceKeyChain,Chain
@@ -155,6 +157,13 @@ ItemNeckHighCollarLeather,Leather
 ItemNeckHighCollarRings,Rings
 ItemNeckOrnateCollarCollar,Collar
 ItemNeckOrnateCollarGem,Gems
+ItemNeckAccessoriesCustomCollarTagTag,Tag
+ItemNeckAccessoriesCustomCollarTagText,Text
+ItemMiscWoodenSignSign,Sign
+ItemMiscWoodenSignRope,Rope
+ItemMiscWoodenSignText,Text
+ItemMiscWoodenSignRope,Rope
+ItemMiscWoodenSignText,Text
 ItemDevicesBedPillow,Pillow
 ItemDevicesBedMattress,Mattress
 ItemDevicesBedHeadboard,Headboard
@@ -163,6 +172,10 @@ ItemDevicesCoffinFrame,Frame
 ItemDevicesCoffinOpen,Lid (open)
 ItemDevicesCoffinClosed,Lid (closed)
 ItemDevicesBedBedFrame,Frame
+ItemDevicesCoffinInside,Velvet
+ItemDevicesCoffinFrame,Frame
+ItemDevicesCoffinOpen,Lid (open)
+ItemDevicesCoffinClosed,Lid (closed)
 ItemAddonCoversOuter,Outer
 ItemAddonCoversInner,Inner
 ItemDevicesCageFrame,Frame
@@ -333,3 +346,9 @@ MaskFoxMaskUpper,Upper
 MaskFoxMaskLower,Lower
 MaskKittyMask3Highlights,Highlights
 MaskKittyMask3Mask,Mask
+ItemBreastFuturisticBraBra,Body
+ItemBreastFuturisticBraDisplay,Display
+ItemBreastFuturisticBraMesh,Mesh
+ItemPelvisFuturisticChastityBeltScreen,Screen
+ItemPelvisFuturisticChastityBeltMesh,Mesh
+ItemPelvisFuturisticChastityBeltBelt,Belt
