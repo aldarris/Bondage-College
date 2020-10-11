@@ -3099,7 +3099,7 @@ var AssetFemale3DCG = [
 					{Name:"Inside", Priority:1, HasType: false},
 					{Name:"Frame", Priority:57, ColorGroup: "Main", HasType: false, Alpha: [{ Masks: [
 						[0, 0, 500, 50],  //Above 
-						[0, 950, 500, 50],  //Below
+						[0, 970, 500, 30],  //Below
 						[0, 0, 160, 1000], //Left side is covered by lid
 						[360, 0, 135, 200], //Triangle approx of right side
 						[370, 200, 135, 1000],
