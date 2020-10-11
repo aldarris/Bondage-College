@@ -172,12 +172,10 @@ ItemDevicesCoffinInside,Velvet
 ItemDevicesCoffinFrame,Frame
 ItemDevicesCoffinOpen,Lid (open)
 ItemDevicesCoffinClosed,Lid (closed)
-ItemDevicesCoffinFrame,Frame
 ItemDevicesCryoCapsuleInside,Bottom
 ItemDevicesCryoCapsuleFrame,Frame
 ItemDevicesCryoCapsuleOpen,Lid (open)
 ItemDevicesCryoCapsuleClosed,Lid (closed)
-ItemDevicesCryoCapsuleFrame,Frame
 ItemAddonCoversOuter,Outer
 ItemAddonCoversInner,Inner
 ItemDevicesCageFrame,Frame
