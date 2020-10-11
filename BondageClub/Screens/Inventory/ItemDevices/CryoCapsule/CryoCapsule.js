@@ -52,7 +52,7 @@ function InventoryItemDevicesCryoCapsulePublishAction(C, Option) {
 	var msg = "CryoCapsuleSet" + Option.Name;
 	var Dictionary = [
 		{ Tag: "SourceCharacter", Text: Player.Name, MemberNumber: Player.MemberNumber },
-		{ Tag: "TargetCharacterName", Text: C.Name, MemberNumber: C.MemberNumber },
+		{ Tag: "TargetCharacter", Text: C.Name, MemberNumber: C.MemberNumber },
 	];
 	ChatRoomPublishCustomAction(msg, true, Dictionary);
 }
